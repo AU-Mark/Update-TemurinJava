@@ -99,7 +99,7 @@ The script provides comprehensive Java version management through automated dete
 - **Revision Handling**: Automatically uninstalls same-version builds before installing updates
 
 ### 6. **Self-Installation and Scheduling**
-- **Script Deployment**: Copies itself to `C:\ProgramData\Aunalytics\Update-TemurinJava\`
+- **Script Deployment**: Copies itself to `C:\ProgramData\Update-TemurinJava\`
 - **Scheduled Task Creation**: Configures daily checks at 8:00 AM and system startup
 - **SYSTEM Account Execution**: Runs with highest privileges for system-wide updates
 - **Automatic Logging**: Creates detailed logs with rotation and compression
@@ -130,14 +130,14 @@ The script provides comprehensive Java version management through automated dete
 
 **Installation Paths**
 ```powershell
-$Script:InstallPath = 'C:\ProgramData\Aunalytics\Update-TemurinJava'
+$Script:InstallPath = 'C:\ProgramData\Update-TemurinJava'
 $Script:TempDownloadPath = Join-Path $Script:InstallPath 'Installers'
-$Script:LogPath = 'C:\ProgramData\Aunalytics\Logs'
+$Script:LogPath = 'C:\ProgramData\Update-TemurinJava\Logs'
 ```
 
 **Scheduled Task Configuration**
 ```powershell
-$Script:ScheduledTaskName = 'AU-UpdateTemurinJava'
+$Script:ScheduledTaskName = 'UpdateTemurinJava'
 $Script:ScheduledTaskDescription = 'Daily check for Adoptium Eclipse Temurin Java updates'
 $Script:ScheduledTaskTime = '08:00:00'
 ```
@@ -182,7 +182,7 @@ powershell.exe -ExecutionPolicy Bypass -File "Update-TemurinJava.ps1" -Install -
 
 **Log File Structure**
 ```
-C:\ProgramData\Aunalytics\
+C:\ProgramData\Update-TemurinJava\
 ├── Logs\
 │   ├── Update-TemurinJava.log          # Primary log file (current)
 │   ├── Update-TemurinJava.1.log        # Rotated log file
@@ -212,8 +212,8 @@ PS C:\> .\Update-TemurinJava.ps1 -Force
 [2025-08-15 14:00:00][INFO] Script version: 1.0
 [2025-08-15 14:00:00][INFO] Execution mode: Update
 [2025-08-15 14:00:00][INFO] Script not running from installation directory
-[2025-08-15 14:00:01][INFO] Creating installation directory: C:\ProgramData\Aunalytics\Update-TemurinJava
-[2025-08-15 14:00:01][INFO] Copying script to C:\ProgramData\Aunalytics\Update-TemurinJava\Update-TemurinJava.ps1
+[2025-08-15 14:00:01][INFO] Creating installation directory: C:\ProgramData\Update-TemurinJava\Update-TemurinJava
+[2025-08-15 14:00:01][INFO] Copying script to C:\ProgramData\Update-TemurinJava\Update-TemurinJava\Update-TemurinJava.ps1
 [2025-08-15 14:00:01][SUCCESS] Script copied successfully
 [2025-08-15 14:00:01][INFO] Creating scheduled task
 [2025-08-15 14:00:02][SUCCESS] Scheduled task created successfully
@@ -376,13 +376,13 @@ PS C:\> .\Update-TemurinJava.ps1 -Install -Versions "11" -Arch "x64" -Type "JDK"
 **Viewing Logs**
 ```powershell
 # View main log
-Get-Content "C:\ProgramData\Aunalytics\Logs\Update-TemurinJava.log" -Tail 50
+Get-Content "C:\ProgramData\Update-TemurinJava\Logs\Update-TemurinJava.log" -Tail 50
 
 # Check MSI installation logs
-Get-ChildItem "C:\ProgramData\Aunalytics\Logs\MSI_Logs\" | Sort-Object LastWriteTime -Descending | Select -First 5
+Get-ChildItem "C:\ProgramData\Update-TemurinJava\Logs\MSI_Logs\" | Sort-Object LastWriteTime -Descending | Select -First 5
 
 # Monitor real-time log updates
-Get-Content "C:\ProgramData\Aunalytics\Logs\Update-TemurinJava.log" -Wait
+Get-Content "C:\ProgramData\Update-TemurinJava\Logs\Update-TemurinJava.log" -Wait
 ```
 
 **Manual Verification**
@@ -391,7 +391,7 @@ Get-Content "C:\ProgramData\Aunalytics\Logs\Update-TemurinJava.log" -Wait
 Get-WmiObject -Class Win32_Product | Where-Object {$_.Vendor -eq "Eclipse Adoptium"} | Select Name, Version
 
 # Verify scheduled task
-Get-ScheduledTask -TaskName "AU-UpdateTemurinJava" | Format-List
+Get-ScheduledTask -TaskName "UpdateTemurinJava" | Format-List
 
 # Test GitHub API connectivity
 Invoke-RestMethod -Uri "https://api.github.com/repos/adoptium/temurin17-binaries/releases/latest" | Select tag_name
@@ -498,5 +498,6 @@ Script Components:
 - [Adoptium Installation Guide](https://adoptium.net/installation/)
 
 ---
+
 
 > **Enterprise Note**: This script is designed for system administrators managing Temurin Java deployments across Windows environments. It provides hands-off Java version management while maintaining full control over update scheduling and system impact. The script's self-installing nature and scheduled task integration make it ideal for deployment through Group Policy, SCCM, or other enterprise management tools.
