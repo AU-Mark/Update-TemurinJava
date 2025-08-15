@@ -39,9 +39,9 @@
     Forces reinstallation of the script and scheduled task
 
 .NOTES
-    Author: System Administrator
+    Author: Mark Newton
     Version: 1.0
-    Created: 2025
+    Created: 08/15/2025
 #>
 
 # ================================
@@ -2549,3 +2549,4 @@ Exit 0
 
 
 #endregion
+
