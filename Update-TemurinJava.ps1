@@ -82,13 +82,13 @@ Param(
 #region Configuration Variables (Editable)
 
 # Paths and directories
-$Script:InstallPath = 'C:\ProgramData\Aunalytics\Update-TemurinJava'
+$Script:InstallPath = 'C:\ProgramData\Update-TemurinJava'
 $Script:ScriptName = 'Update-TemurinJava.ps1'
 $Script:TempDownloadPath = Join-Path $Script:InstallPath 'Installers'
-$Script:LogPath = 'C:\ProgramData\Aunalytics\Logs'
+$Script:LogPath = 'C:\ProgramData\Update-TemurinJava\Logs'
 
 # Scheduled task configuration
-$Script:ScheduledTaskName = 'AU-UpdateTemurinJava'
+$Script:ScheduledTaskName = 'UpdateTemurinJava'
 $Script:ScheduledTaskDescription = 'Daily check for Adoptium Eclipse Temurin Java updates'
 $Script:ScheduledTaskTime = '08:00:00'
 
@@ -2546,5 +2546,6 @@ Try {
 }
 
 Exit 0
+
 
 #endregion
